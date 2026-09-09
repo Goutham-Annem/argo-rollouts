@@ -131,7 +131,7 @@ data:
 
 * `labels` - at least one label pair required, implement different notification strategies according to alertmanager routing
 * `annotations` - optional, specifies a set of information labels, which can be used to store longer additional information, but only for display
-* `generatorURL` - optional, default is '{{.app.spec.source.repoURL}}', backlink used to identify the entity that caused this alert in the client
+* `generatorURL` - optional, default is '{{.rollout.spec.source.repoURL}}', backlink used to identify the entity that caused this alert in the client
 
 the `label` or `annotations` or `generatorURL` values can be templated.
 
@@ -140,7 +140,7 @@ context: |
   argocdUrl: https://example.com/argocd
 
 template.app-deployed: |
-  message: Application {{.app.metadata.name}} has been healthy.
+  message: Application {{.rollout.metadata.name}} has been healthy.
   alertmanager:
     labels:
       fault_priority: "P5"
@@ -148,16 +148,16 @@ template.app-deployed: |
       event_status: "succeed"
       recipient: "{{.recipient}}"
     annotations:
-      application: '<a href="{{.context.argocdUrl}}/applications/{{.app.metadata.name}}">{{.app.metadata.name}}</a>'
-      author: "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Author}}"
-      message: "{{(call .repo.GetCommitMetadata .app.status.sync.revision).Message}}"
+      application: '<a href="{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}">{{.rollout.metadata.name}}</a>'
+      author: "{{(call .repo.GetCommitMetadata .rollout.status.sync.revision).Author}}"
+      message: "{{(call .repo.GetCommitMetadata .rollout.status.sync.revision).Message}}"
 ```
 
 You can do targeted push on [Alertmanager](https://github.com/prometheus/alertmanager) according to labels.
 
 ```yaml
 template.app-deployed: |
-  message: Application {{.app.metadata.name}} has been healthy.
+  message: Application {{.rollout.metadata.name}} has been healthy.
   alertmanager:
     labels:
       alertname: app-deployed

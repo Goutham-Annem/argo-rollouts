@@ -48,20 +48,20 @@ metadata:
 ## Templates
 
 - `revision` - **optional**, The revision being deployed. Can contain a custom template to extract the revision from your specific application status structure.
-  - Defaults to `{{.app.status.operationState.syncResult.revision}}`
+  - Defaults to `{{.rollout.status.operationState.syncResult.revision}}`
 - `description` - **optional**, high-level description of this deployment, visible in the [Summary](https://docs.newrelic.com/docs/apm/applications-menu/monitoring/apm-overview-page) page and on the [Deployments](https://docs.newrelic.com/docs/apm/applications-menu/events/deployments-page) page when you select an individual deployment.
   - Defaults to `message`
 - `changelog` - **optional**, A summary of what changed in this deployment, visible in the [Deployments](https://docs.newrelic.com/docs/apm/applications-menu/events/deployments-page) page when you select (selected deployment) > Change log.
-  - Defaults to `{{(call .repo.GetCommitMetadata .app.status.sync.revision).Message}}`
+  - Defaults to `{{(call .repo.GetCommitMetadata .rollout.status.sync.revision).Message}}`
 - `user` - **optional**, A username to associate with the deployment, visible in the [Summary](https://docs.newrelic.com/docs/apm/applications-menu/events/deployments-page) and on the [Deployments](https://docs.newrelic.com/docs/apm/applications-menu/events/deployments-page).
-  - Defaults to `{{(call .repo.GetCommitMetadata .app.status.sync.revision).Author}}`
+  - Defaults to `{{(call .repo.GetCommitMetadata .rollout.status.sync.revision).Author}}`
 
 ```yaml
 context: |
   argocdUrl: https://example.com/argocd
 
 template.app-deployed: |
-  message: Application {{.app.metadata.name}} has successfully deployed.
+  message: Application {{.rollout.metadata.name}} has successfully deployed.
   newrelic:
-    description: Application {{.app.metadata.name}} has successfully deployed
+    description: Application {{.rollout.metadata.name}} has successfully deployed
 ```

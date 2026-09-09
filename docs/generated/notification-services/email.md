@@ -69,8 +69,8 @@ metadata:
 data:
   template.app-sync-succeeded: |
     email:
-      subject: Application {{.app.metadata.name}} has been successfully synced.
+      subject: Application {{.rollout.metadata.name}} has been successfully synced.
     message: |
-      {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
-      Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true .
+      {{if eq .serviceType "slack"}}:white_check_mark:{{end}} Application {{.rollout.metadata.name}} has been successfully synced at {{.rollout.status.operationState.finishedAt}}.
+      Sync operation details are available at: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true .
 ```

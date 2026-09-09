@@ -51,7 +51,7 @@ You can send [simple text](https://developers.google.com/chat/reference/message-
 
 ```yaml
 template.app-sync-succeeded: |
-  message: The app {{ .app.metadata.name }} has successfully synced!
+  message: The app {{ .rollout.metadata.name }} has successfully synced!
 ```
 
 A card message can be defined as follows:
@@ -65,17 +65,17 @@ template.app-sync-succeeded: |
         sections:
           - widgets:
               - decoratedText:
-                  text: The app {{ .app.metadata.name }} has successfully synced!
+                  text: The app {{ .rollout.metadata.name }} has successfully synced!
           - widgets:
               - decoratedText:
                   topLabel: Repository
-                  text: {{ call .repo.RepoURLToHTTPS .app.spec.source.repoURL }}
+                  text: {{ call .repo.RepoURLToHTTPS .rollout.spec.source.repoURL }}
               - decoratedText:
                   topLabel: Revision
-                  text: {{ .app.spec.source.targetRevision }}
+                  text: {{ .rollout.spec.source.targetRevision }}
               - decoratedText:
                   topLabel: Author
-                  text: {{ (call .repo.GetCommitMetadata .app.status.sync.revision).Author }}
+                  text: {{ (call .repo.GetCommitMetadata .rollout.status.sync.revision).Author }}
 ```
 All [Card fields](https://developers.google.com/chat/api/reference/rest/v1/cards#Card_1) are supported and can be used
 in notifications. It is also possible to use the previous (now deprecated) `cards` key to use the legacy card fields,
@@ -89,7 +89,7 @@ It is possible send both simple text and card messages in a chat thread by speci
 
 ```yaml
 template.app-sync-succeeded: |
-  message: The app {{ .app.metadata.name }} has successfully synced!
+  message: The app {{ .rollout.metadata.name }} has successfully synced!
   googlechat:
-    threadKey: {{ .app.metadata.name }}
+    threadKey: {{ .rollout.metadata.name }}
 ```

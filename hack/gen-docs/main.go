@@ -48,6 +48,24 @@ func generateNotificationsDocs() {
 		if e := strReplaceDocFiles("../catalog.md#triggers", "../../features/notifications.md#custom-triggers", files); e != nil {
 			log.Fatal(e)
 		}
+		// Argo Rollouts notifications only have access to Rollout resources, not Argo CD Application
+		// resources. Replace the ArgoCD-sourced .app.* template variables with their Rollout equivalents.
+		if e := strReplaceDocFiles(".app.metadata.name", ".rollout.metadata.name", files); e != nil {
+			log.Fatal(e)
+		}
+		if e := strReplaceDocFiles(".app.metadata.", ".rollout.metadata.", files); e != nil {
+			log.Fatal(e)
+		}
+		if e := strReplaceDocFiles(".app.spec.", ".rollout.spec.", files); e != nil {
+			log.Fatal(e)
+		}
+		if e := strReplaceDocFiles(".app.status.", ".rollout.status.", files); e != nil {
+			log.Fatal(e)
+		}
+		// Also fix bare `app.status.` (no leading dot) used in trigger `when` expressions
+		if e := strReplaceDocFiles(" app.status.", " rollout.status.", files); e != nil {
+			log.Fatal(e)
+		}
 	}
 }
 

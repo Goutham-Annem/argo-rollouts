@@ -105,11 +105,11 @@ template.app-sync-succeeded: |
         "facts": [
           {
             "name": "Sync Status",
-            "value": "{{.app.status.sync.status}}"
+            "value": "{{.rollout.status.sync.status}}"
           },
           {
             "name": "Repository",
-            "value": "{{.app.spec.source.repoURL}}"
+            "value": "{{.rollout.spec.source.repoURL}}"
           }
         ]
       }]
@@ -119,12 +119,12 @@ template.app-sync-succeeded: |
         "name":"Operation Details",
         "targets":[{
           "os":"default",
-          "uri":"{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
+          "uri":"{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true"
         }]
       }]
-    title: Application {{.app.metadata.name}} has been successfully synced
-    text: Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
-    summary: "{{.app.metadata.name}} sync succeeded"
+    title: Application {{.rollout.metadata.name}} has been successfully synced
+    text: Application {{.rollout.metadata.name}} has been successfully synced at {{.rollout.status.operationState.finishedAt}}.
+    summary: "{{.rollout.metadata.name}} sync succeeded"
 ```
 
 ### facts field
@@ -137,11 +137,11 @@ template.app-sync-succeeded: |
     facts: |
       [{
         "name": "Sync Status",
-        "value": "{{.app.status.sync.status}}"
+        "value": "{{.rollout.status.sync.status}}"
       },
       {
         "name": "Repository",
-        "value": "{{.app.spec.source.repoURL}}"
+        "value": "{{.rollout.spec.source.repoURL}}"
       }]
 ```
 

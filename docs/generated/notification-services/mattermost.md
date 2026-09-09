@@ -62,20 +62,20 @@ Mattermost is compatible with attachments of Slack. See [Mattermost Integration 
 ```yaml
 template.app-deployed: |
   message: |
-    Application {{.app.metadata.name}} is now running new version of deployments manifests.
+    Application {{.rollout.metadata.name}} is now running new version of deployments manifests.
   mattermost:
     attachments: |
       [{
-        "title": "{{.app.metadata.name}}",
-        "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+        "title": "{{.rollout.metadata.name}}",
+        "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
         "color": "#18be52",
         "fields": [{
           "title": "Sync Status",
-          "value": "{{.app.status.sync.status}}",
+          "value": "{{.rollout.status.sync.status}}",
           "short": true
         }, {
           "title": "Repository",
-          "value": "{{.app.spec.source.repoURL}}",
+          "value": "{{.rollout.spec.source.repoURL}}",
           "short": true
         }]
       }]

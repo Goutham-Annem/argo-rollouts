@@ -75,21 +75,21 @@ The message attachments can be specified in `attachments` string fields under `r
 ```yaml
 template.app-sync-status: |
   message: |
-    Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
-    Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    Application {{.rollout.metadata.name}} sync is {{.rollout.status.sync.status}}.
+    Application details: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}.
   rocketchat:
     attachments: |
       [{
-        "title": "{{.app.metadata.name}}",
-        "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+        "title": "{{.rollout.metadata.name}}",
+        "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
         "color": "#18be52",
         "fields": [{
           "title": "Sync Status",
-          "value": "{{.app.status.sync.status}}",
+          "value": "{{.rollout.status.sync.status}}",
           "short": true
         }, {
           "title": "Repository",
-          "value": "{{.app.spec.source.repoURL}}",
+          "value": "{{.rollout.spec.source.repoURL}}",
           "short": true
         }]
       }]

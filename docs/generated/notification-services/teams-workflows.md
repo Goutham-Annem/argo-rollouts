@@ -84,27 +84,27 @@ template.app-sync-succeeded: |
     # ThemeColor supports Adaptive Card semantic colors: "Good", "Warning", "Attention", "Accent"
     # or hex colors like "#000080"
     themeColor: "Good"
-    title: Application {{.app.metadata.name}} has been successfully synced
-    text: Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.
-    summary: "{{.app.metadata.name}} sync succeeded"
+    title: Application {{.rollout.metadata.name}} has been successfully synced
+    text: Application {{.rollout.metadata.name}} has been successfully synced at {{.rollout.status.operationState.finishedAt}}.
+    summary: "{{.rollout.metadata.name}} sync succeeded"
     facts: |
       [{
         "name": "Sync Status",
-        "value": "{{.app.status.sync.status}}"
+        "value": "{{.rollout.status.sync.status}}"
       }, {
         "name": "Repository",
-        "value": "{{.app.spec.source.repoURL}}"
+        "value": "{{.rollout.spec.source.repoURL}}"
       }]
     sections: |
       [{
         "facts": [
           {
             "name": "Namespace",
-            "value": "{{.app.metadata.namespace}}"
+            "value": "{{.rollout.metadata.namespace}}"
           },
           {
             "name": "Cluster",
-            "value": "{{.app.spec.destination.server}}"
+            "value": "{{.rollout.spec.destination.server}}"
           }
         ]
       }]
@@ -114,7 +114,7 @@ template.app-sync-succeeded: |
         "name": "View in Argo CD",
         "targets": [{
           "os": "default",
-          "uri": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}"
+          "uri": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}"
         }]
       }]
 ```
@@ -141,14 +141,14 @@ template.app-sync-succeeded: |
         "body": [
           {
             "type": "TextBlock",
-            "text": "Application {{.app.metadata.name}} synced successfully",
+            "text": "Application {{.rollout.metadata.name}} synced successfully",
             "size": "Large",
             "weight": "Bolder",
             "color": "Good"
           },
           {
             "type": "TextBlock",
-            "text": "Application {{.app.metadata.name}} has been successfully synced at {{.app.status.operationState.finishedAt}}.",
+            "text": "Application {{.rollout.metadata.name}} has been successfully synced at {{.rollout.status.operationState.finishedAt}}.",
             "wrap": true
           },
           {
@@ -156,11 +156,11 @@ template.app-sync-succeeded: |
             "facts": [
               {
                 "title": "Sync Status",
-                "value": "{{.app.status.sync.status}}"
+                "value": "{{.rollout.status.sync.status}}"
               },
               {
                 "title": "Repository",
-                "value": "{{.app.spec.source.repoURL}}"
+                "value": "{{.rollout.spec.source.repoURL}}"
               }
             ]
           }
@@ -169,7 +169,7 @@ template.app-sync-succeeded: |
           {
             "type": "Action.OpenUrl",
             "title": "View in Argo CD",
-            "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}"
+            "url": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}"
           }
         ]
       }
@@ -196,7 +196,7 @@ The Teams Workflows service supports the following template fields, which are au
   facts: |
     [{
       "name": "Status",
-      "value": "{{.app.status.sync.status}}"
+      "value": "{{.rollout.status.sync.status}}"
     }]
   ```
 - `sections` - JSON array of sections containing facts (facts are extracted and converted to FactSet)
@@ -205,7 +205,7 @@ The Teams Workflows service supports the following template fields, which are au
     [{
       "facts": [{
         "name": "Namespace",
-        "value": "{{.app.metadata.namespace}}"
+        "value": "{{.rollout.metadata.namespace}}"
       }]
     }]
   ```
@@ -217,7 +217,7 @@ The Teams Workflows service supports the following template fields, which are au
       "name": "View Details",
       "targets": [{
         "os": "default",
-        "uri": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}"
+        "uri": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}"
       }]
     }]
   ```
@@ -329,7 +329,7 @@ template.app-sync-succeeded-advanced: |
                     "items": [
                       {
                         "type": "TextBlock",
-                        "text": "Application {{.app.metadata.name}}",
+                        "text": "Application {{.rollout.metadata.name}}",
                         "weight": "Bolder",
                         "size": "Large"
                       },
@@ -348,11 +348,11 @@ template.app-sync-succeeded-advanced: |
                 "facts": [
                   {
                     "title": "Status",
-                    "value": "{{.app.status.sync.status}}"
+                    "value": "{{.rollout.status.sync.status}}"
                   },
                   {
                     "title": "Repository",
-                    "value": "{{.app.spec.source.repoURL}}"
+                    "value": "{{.rollout.spec.source.repoURL}}"
                   }
                 ]
               }
@@ -363,7 +363,7 @@ template.app-sync-succeeded-advanced: |
           {
             "type": "Action.OpenUrl",
             "title": "View in Argo CD",
-            "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}"
+            "url": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}"
           }
         ]
       }

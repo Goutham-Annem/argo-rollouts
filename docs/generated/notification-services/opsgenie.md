@@ -43,15 +43,15 @@ data:
       <your-team>: <integration-api-key>
   template.opsgenie: |
     message: |
-      [Argo CD] Application {{.app.metadata.name}} has a problem.
+      [Argo CD] Application {{.rollout.metadata.name}} has a problem.
     opsgenie:
       description: |
-        Application: {{.app.metadata.name}}
-        Health Status: {{.app.status.health.status}}
-        Operation State Phase: {{.app.status.operationState.phase}}
-        Sync Status: {{.app.status.sync.status}}
+        Application: {{.rollout.metadata.name}}
+        Health Status: {{.rollout.status.health.status}}
+        Operation State Phase: {{.rollout.status.operationState.phase}}
+        Sync Status: {{.rollout.status.sync.status}}
       priority: P1
-      alias: {{.app.metadata.name}}
+      alias: {{.rollout.metadata.name}}
       note: Error from Argo CD!
       actions:
         - Restart
@@ -60,11 +60,11 @@ data:
         - OverwriteQuietHours
         - Critical
       visibleTo:
-        - Id: "{{.app.metadata.responderId}}"
+        - Id: "{{.rollout.metadata.responderId}}"
           Type: "team"
         - Name: "rocket_team"
           Type: "team"
-        - Id: "{{.app.metadata.responderUserId}}"
+        - Id: "{{.rollout.metadata.responderUserId}}"
           Type: "user"
         - Username: "trinity@opsgenie.com"
           Type: "user"
@@ -77,7 +77,7 @@ data:
     - description: Application has a problem.
       send:
       - opsgenie
-      when: app.status.health.status == 'Degraded' or app.status.operationState.phase in ['Error', 'Failed'] or app.status.sync.status == 'Unknown'
+      when: rollout.status.health.status == 'Degraded' or rollout.status.operationState.phase in ['Error', 'Failed'] or rollout.status.sync.status == 'Unknown'
 ```
 
 16. Add annotation in the application YAML file to enable notifications for a specific Argo CD app.

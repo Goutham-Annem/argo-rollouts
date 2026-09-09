@@ -67,41 +67,41 @@ metadata:
 ```yaml
 template.app-deployed: |
   message: |
-    Application {{.app.metadata.name}} is now running new version of deployments manifests.
+    Application {{.rollout.metadata.name}} is now running new version of deployments manifests.
   github:
-    repoURLPath: "{{.app.spec.source.repoURL}}"
-    revisionPath: "{{.app.status.operationState.syncResult.revision}}"
+    repoURLPath: "{{.rollout.spec.source.repoURL}}"
+    revisionPath: "{{.rollout.status.operationState.syncResult.revision}}"
     status:
       state: success
-      label: "continuous-delivery/{{.app.metadata.name}}"
-      targetURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
+      label: "continuous-delivery/{{.rollout.metadata.name}}"
+      targetURL: "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true"
     deployment:
       state: success
       environment: production
-      environmentURL: "https://{{.app.metadata.name}}.example.com"
-      logURL: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
+      environmentURL: "https://{{.rollout.metadata.name}}.example.com"
+      logURL: "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true"
       requiredContexts: []
       autoMerge: true
       transientEnvironment: false
       reference: v1.0.0
     pullRequestComment:
       content: |
-        Application {{.app.metadata.name}} is now running new version of deployments manifests.
-        See more here: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true
-      commentTag: "continuous-delivery/{{.app.metadata.name}}"
+        Application {{.rollout.metadata.name}} is now running new version of deployments manifests.
+        See more here: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true
+      commentTag: "continuous-delivery/{{.rollout.metadata.name}}"
     checkRun:
-      name: "continuous-delivery/{{.app.metadata.name}}"
-      details_url: "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true"
+      name: "continuous-delivery/{{.rollout.metadata.name}}"
+      details_url: "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true"
       status: completed
       conclusion: success
       started_at: "YYYY-MM-DDTHH:MM:SSZ"
       completed_at: "YYYY-MM-DDTHH:MM:SSZ"
       output:
-        title: "Deployment of {{.app.metadata.name}} on ArgoCD"
-        summary: "Application {{.app.metadata.name}} is now running new version of deployments manifests."
+        title: "Deployment of {{.rollout.metadata.name}} on ArgoCD"
+        summary: "Application {{.rollout.metadata.name}} is now running new version of deployments manifests."
         text: |
-          Application {{.app.metadata.name}} is now running new version of deployments manifests.
-          See more here: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}?operation=true
+          Application {{.rollout.metadata.name}} is now running new version of deployments manifests.
+          See more here: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}?operation=true
 ```
 
 **Notes**:

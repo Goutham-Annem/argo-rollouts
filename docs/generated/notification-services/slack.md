@@ -102,21 +102,21 @@ The message blocks and attachments can be specified in `blocks` and `attachments
 ```yaml
 template.app-sync-status: |
   message: |
-    Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
-    Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    Application {{.rollout.metadata.name}} sync is {{.rollout.status.sync.status}}.
+    Application details: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}.
   slack:
     attachments: |
       [{
-        "title": "{{.app.metadata.name}}",
-        "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+        "title": "{{.rollout.metadata.name}}",
+        "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
         "color": "#18be52",
         "fields": [{
           "title": "Sync Status",
-          "value": "{{.app.status.sync.status}}",
+          "value": "{{.rollout.status.sync.status}}",
           "short": true
         }, {
           "title": "Repository",
-          "value": "{{.app.spec.source.repoURL}}",
+          "value": "{{.rollout.spec.source.repoURL}}",
           "short": true
         }]
       }]
@@ -129,23 +129,23 @@ If you set `username` and `icon` in template, the values set in template will be
 ```yaml
 template.app-sync-status: |
   message: |
-    Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
-    Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    Application {{.rollout.metadata.name}} sync is {{.rollout.status.sync.status}}.
+    Application details: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}.
   slack:
     username: "testbot"
     icon: https://example.com/image.png
     attachments: |
       [{
-        "title": "{{.app.metadata.name}}",
-        "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+        "title": "{{.rollout.metadata.name}}",
+        "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
         "color": "#18be52",
         "fields": [{
           "title": "Sync Status",
-          "value": "{{.app.status.sync.status}}",
+          "value": "{{.rollout.status.sync.status}}",
           "short": true
         }, {
           "title": "Repository",
-          "value": "{{.app.spec.source.repoURL}}",
+          "value": "{{.rollout.spec.source.repoURL}}",
           "short": true
         }]
       }]
@@ -159,49 +159,49 @@ Furthermore, the messages can be broadcast to the channel at the specific templa
 ```yaml
 template.app-sync-status: |
   message: |
-    Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
-    Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    Application {{.rollout.metadata.name}} sync is {{.rollout.status.sync.status}}.
+    Application details: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}.
   slack:
     attachments: |
       [{
-        "title": "{{.app.metadata.name}}",
-        "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+        "title": "{{.rollout.metadata.name}}",
+        "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
         "color": "#18be52",
         "fields": [{
           "title": "Sync Status",
-          "value": "{{.app.status.sync.status}}",
+          "value": "{{.rollout.status.sync.status}}",
           "short": true
         }, {
           "title": "Repository",
-          "value": "{{.app.spec.source.repoURL}}",
+          "value": "{{.rollout.spec.source.repoURL}}",
           "short": true
         }]
       }]
     # Aggregate the messages to the thread by git commit hash
-    groupingKey: "{{.app.status.sync.revision}}"
+    groupingKey: "{{.rollout.status.sync.revision}}"
     notifyBroadcast: false
 template.app-sync-failed: |
   message: |
-    Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
-    Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+    Application {{.rollout.metadata.name}} sync is {{.rollout.status.sync.status}}.
+    Application details: {{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}.
   slack:
     attachments: |
       [{
-        "title": "{{.app.metadata.name}}",
-        "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+        "title": "{{.rollout.metadata.name}}",
+        "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
         "color": "#ff0000",
         "fields": [{
           "title": "Sync Status",
-          "value": "{{.app.status.sync.status}}",
+          "value": "{{.rollout.status.sync.status}}",
           "short": true
         }, {
           "title": "Repository",
-          "value": "{{.app.spec.source.repoURL}}",
+          "value": "{{.rollout.spec.source.repoURL}}",
           "short": true
         }]
       }]
     # Aggregate the messages to the thread by git commit hash
-    groupingKey: "{{.app.status.sync.revision}}"
+    groupingKey: "{{.rollout.status.sync.revision}}"
     notifyBroadcast: true
 ```
 

@@ -136,16 +136,16 @@ data:
     webhook:
       github:
         method: POST
-        path: /repos/{{call .repo.FullNameByRepoURL .app.spec.source.repoURL}}/statuses/{{.app.status.operationState.operation.sync.revision}}
+        path: /repos/{{call .repo.FullNameByRepoURL .rollout.spec.source.repoURL}}/statuses/{{.rollout.status.operationState.operation.sync.revision}}
         body: |
           {
-            {{if eq .app.status.operationState.phase "Running"}} "state": "pending"{{end}}
-            {{if eq .app.status.operationState.phase "Succeeded"}} "state": "success"{{end}}
-            {{if eq .app.status.operationState.phase "Error"}} "state": "error"{{end}}
-            {{if eq .app.status.operationState.phase "Failed"}} "state": "error"{{end}},
+            {{if eq .rollout.status.operationState.phase "Running"}} "state": "pending"{{end}}
+            {{if eq .rollout.status.operationState.phase "Succeeded"}} "state": "success"{{end}}
+            {{if eq .rollout.status.operationState.phase "Error"}} "state": "error"{{end}}
+            {{if eq .rollout.status.operationState.phase "Failed"}} "state": "error"{{end}},
             "description": "ArgoCD",
-            "target_url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
-            "context": "continuous-delivery/{{.app.metadata.name}}"
+            "target_url": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
+            "context": "continuous-delivery/{{.rollout.metadata.name}}"
           }
 ```
 
@@ -208,16 +208,16 @@ data:
         body: |
           {
             "attachments": [{
-              "title": "{{.app.metadata.name}}",
-              "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+              "title": "{{.rollout.metadata.name}}",
+              "title_link": "{{.context.argocdUrl}}/applications/{{.rollout.metadata.name}}",
               "color": "#18be52",
               "fields": [{
                 "title": "Sync Status",
-                "value": "{{.app.status.sync.status}}",
+                "value": "{{.rollout.status.sync.status}}",
                 "short": true
               }, {
                 "title": "Repository",
-                "value": "{{.app.spec.source.repoURL}}",
+                "value": "{{.rollout.spec.source.repoURL}}",
                 "short": true
               }]
             }]
